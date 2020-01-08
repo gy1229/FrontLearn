@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <script src="./lib/vue.js"></script>
+</head>
+<body>
+    <div id="app">
+        <input type="button" value="dynamic" @click="dynamic">
+        <input type="button" value="static" @click="static">
+        <h4>{{msg}}</h4>
+    </div>
+    <script>
+        var vm = new Vue({
+            el: '#app',
+            data: {
+                msg: '猥琐发育，李健我爱你！！！',
+                intervarId: null // 定时器Id
+            },
+            // vm实例中， 想要获取data上的数据，或需要调用method的方法需要通过this
+
+            methods: {
+                dynamic(){
+                    if (this.intervarId != null) {
+                        return;
+                    }
+                    this.intervarId = setInterval(() =>{
+                       //   console.log(this.msg)
+                    var start = this.msg.substring(0, 1)
+                    var end = this.msg.substring(1)
+                    this.msg = end + start
+                    }, 400)
+                },
+                static() {
+                    clearInterval(this.intervarId)
+                    this.intervarId = null 
+                }
+            }
+        })
+    </script>
+</body>
+</html>
